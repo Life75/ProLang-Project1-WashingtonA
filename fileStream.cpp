@@ -1,6 +1,6 @@
 #include "fileStream.hpp"
 
- FileStream::FileStream(std::string fileName, std::vector<std::string> code)
+ FileStream::FileStream(std::string fileName, std::vector<std::string> &code)
 {
 	std::fstream file;
 	fileName = fileName;
@@ -13,11 +13,12 @@
 	{
 		std::getline(file, ch);
 		
-		std::cout << ch << "\n";
+		code.push_back(ch);
 		count++;
+		//std::cout << ch << " " << count << "\n";
 	}
 
-	std::cout << count;
+	//std::cout << code.size();
 	/*
 	while(file >> ch)
 	{

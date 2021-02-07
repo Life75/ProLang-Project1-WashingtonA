@@ -9,7 +9,7 @@ class FileStream {
 private:
 	std::string fileName;
 public:
-	FileStream(std::string fileName, std::vector<std::string> code);
+	FileStream(std::string fileName, std::vector<std::string> &code);
 
 };
 #endif
