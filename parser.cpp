@@ -1,6 +1,6 @@
 #include "parser.hpp"
 #define NUM 100
-#define VAR 200 
+#define ID 200 
 #define ID 300
 
 

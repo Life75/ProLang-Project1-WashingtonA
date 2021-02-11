@@ -10,8 +10,12 @@
 #include "../lexicon.hpp"
 
 #define NUM 100
-#define VAR 200 
-#define ID 300
+#define ID 200 
+#define EQ 64
+#define OP 65
+#define LEFT_PAR 40
+#define RIGHT_PAR 41
+ 
 #define ERROR -1
 
 TEST_CASE("FileStream")
@@ -65,8 +69,27 @@ TEST_CASE("Lexicon")
     REQUIRE(lexicon.analyzer("100") == NUM);
     REQUIRE(lexicon.analyzer("1a0a") == ERROR);
 
-    //REQUIRE(lexicon.analyzer("a_") == VAR);
-    //REQUIRE(lexicon.analyzer("=") == ID);
+    //Checking for correct variable input syntax
+    REQUIRE(lexicon.analyzer("abc2") == ID);
+    REQUIRE(lexicon.analyzer("a_bc2") == ID);
+
+    REQUIRE(lexicon.analyzer("a_") == ERROR);
+    REQUIRE(lexicon.analyzer("_abc") == ERROR);
+    REQUIRE(lexicon.analyzer("a__") == ERROR);
+
+    //Checking for correct assignment operator 
+    REQUIRE(lexicon.analyzer("=") == EQ);
+
+    REQUIRE(lexicon.analyzer("*") == OP);
+    REQUIRE(lexicon.analyzer("+") == OP);
+    REQUIRE(lexicon.analyzer("-") == OP);
+
+    REQUIRE(lexicon.analyzer("(") == LEFT_PAR);
+    REQUIRE(lexicon.analyzer(")") == RIGHT_PAR);
+
+    REQUIRE(lexicon.analyzer("!") == ERROR);
+
+    REQUIRE(lexicon.analyzer("=dbs_") == ERROR);
 
    // REQUIRE();
 }

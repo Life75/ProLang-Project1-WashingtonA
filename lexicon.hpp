@@ -6,8 +6,12 @@
 #include <string>
 
 #define NUM 100
-#define VAR 200 
-#define ID 300
+#define ID 200 
+#define EQ 64
+#define OP 65
+#define LEFT_PAR 40
+#define RIGHT_PAR 41
+//#define 
 #define ERROR -1
 
 
