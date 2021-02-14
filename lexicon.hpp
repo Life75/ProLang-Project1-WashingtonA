@@ -17,10 +17,13 @@
 
 class Lexicon {
 private:
-	int lookAhead;
+//holds multiple values of what lookAhead could potientally be 
+	std::vector<int> lookAhead;
 
 public:
 	Lexicon();
 	int analyzer(std::string input);
+	std::vector<int> getLookAhead();
+	void clearLookAhead();
 };
 #endif

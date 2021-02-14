@@ -5,25 +5,51 @@ Lexicon::Lexicon()
 //checks the value and proper syntax for the value or will return an error 
 int Lexicon::analyzer(std::string input)
 {
-
+	clearLookAhead();
+//EQ
 	if (input[0] == '=')
 	{
 		if (input.length() > 1)
 			return ERROR;
 		else 
+		{
+		lookAhead.push_back(ID);
+		lookAhead.push_back(NUM);
 		return EQ;
+		}
+	
 	}
-
+//OPERATORS OP
 	if (input[0] == 42 || input[0] == 43 || input[0] == 45 || input[0] == 47)
 	{
 		if (input.length() > 1)
 			return ERROR;
 		else
-		return OP;
+		{
+			lookAhead.push_back(ID);
+			lookAhead.push_back(NUM);
+			lookAhead.push_back(LEFT_PAR);
+			return OP;
+		}
 	}
 
-	if (input[0] == LEFT_PAR) return LEFT_PAR;
-	if (input[0] == RIGHT_PAR) return RIGHT_PAR;
+	if (input[0] == LEFT_PAR) 
+	{
+		lookAhead.push_back(ID);
+		lookAhead.push_back(NUM);
+		lookAhead.push_back(RIGHT_PAR);
+		lookAhead.push_back(LEFT_PAR);
+		return LEFT_PAR;
+	}
+
+	if (input[0] == RIGHT_PAR) 
+	{
+		lookAhead.push_back(ID);
+		lookAhead.push_back(NUM);
+		lookAhead.push_back(RIGHT_PAR);
+		lookAhead.push_back(LEFT_PAR);
+		return RIGHT_PAR;
+	} 
 
 
 	//check if its a number 
@@ -37,6 +63,9 @@ int Lexicon::analyzer(std::string input)
 			}
 			
 		}
+		lookAhead.push_back(OP);
+		//lookAhead.push_back(LEFT_PAR);
+		//lookAhead.push_back(RIGHT_PAR);
 		return NUM;
 	}
 
@@ -64,6 +93,11 @@ int Lexicon::analyzer(std::string input)
 			}
 
 		}
+
+		lookAhead.push_back(EQ);
+		lookAhead.push_back(OP);
+		//lookAhead.push_back(LEFT_PAR);
+		lookAhead.push_back(RIGHT_PAR);
 		return ID;
 	}
 
@@ -71,4 +105,14 @@ int Lexicon::analyzer(std::string input)
 
 	return ERROR;
 
+}
+
+std::vector<int> Lexicon::getLookAhead()
+{
+	return lookAhead;
+}
+
+void Lexicon::clearLookAhead()
+{
+	lookAhead.clear();
 }
