@@ -7,7 +7,7 @@ Parser::Parser(std::vector<std::string> code)
     //Handle comments, begin, {code} , end for each line given by vector 
     for (int i = 0; i < code.size(); i++)
     {
-        if (!isComment(code.at(i)))
+        if (!isComment(code.at(i))) //handle for incase there is code after with an else statement 
         {
             isBegin(code.at(i), i);
 
@@ -54,6 +54,23 @@ bool Parser::isBegin(std::string input, int beginLine)
 
 }
 
+bool Parser::isEnd(std::string input, int endLine)
+{
+    if (input.length() > 0)
+    {
+        if (input == "end.")
+        {
+            if (!endExe)
+            {
+                this->endLine = endLine; //end line for code 
+                endExe = true;
+            }
+            return true;
+        }
+        else return false;
+    }
+}
+
 std::vector<int> Parser::statementParser(std::vector<std::string> code)
 {
     std::vector<int> statements;
@@ -61,12 +78,23 @@ std::vector<int> Parser::statementParser(std::vector<std::string> code)
     for (int i = beginLine; i < code.size(); i++)
     {
        // std::cout << beginLine << std::endl;
-        std::cout << code.at(1) << std::endl;;
+        //finds the semicolon within line 
+        char ch;
+        std::stack<std::string> holder; //incase a line doesn't have semicolon hold and until it gets to the semicolon pop all the contents out to that string and form a single statement 
+        for (int j = 0; j < code.at(i).length(); j++)
+        {
+            if(code.at(i) 
+            ch = code.at(i).at(j);
+            
+
+        }
         //std::cout << "hello";
     }
     
         return statements;
 }
+
+
 /*
 void Parse::syntaxChecker(std::string input)
 {

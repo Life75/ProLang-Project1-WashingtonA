@@ -24,6 +24,8 @@ public:
     std::vector<int> statementParser(std::vector<std::string> code);
     bool isComment(std::string input);
     bool isBegin(std::string input, int beginLine);
+    bool isEnd(std::string input, int endLine);
+
     //void syntaxChecker(std::string input);
 
 
